@@ -1,0 +1,51 @@
+﻿@model GroupEditViewModel
+@{
+    ViewData["Title"] = "Add Group";
+}
+
+<div class="text-center">
+    <h1 class="">@(Model == null ? "Add Group" : $"Editting {Model.Group.Name}")</h1>
+</div>
+<a asp-controller="GroupPage" asp-action="Index">Back to Group list</a>
+<hr />
+<form asp-controller="GroupPage" asp-action="@(Model==null?"Add":"Edit")" method="Post">
+    <input asp-for="Group.GroupId" type="hidden" class="form-control" id="id" placeholder="">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input asp-for="Group.Name" type="text" class="form-control" id="name" placeholder="">
+
+    </div>
+    <button type="submit" class="btn btn-primary">@(Model == null ? "Add" : "Save")</button>
+</form>
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-6">
+            <h3>Assigned Permissions</h3>
+            @foreach (var permission in Model.Group.Permissions)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">@permission.Name</p>
+                        <a asp-controller="GroupPage" asp-action="UnassignPermission" asp-route-groupID="@Model.Group.GroupId" asp-route-permissionID="@permission.PermissionId" class="btn btn-danger text-end">Remove Permission</a>
+                    </div>
+                </div>
+            }
+            @(Model.Group.Permissions.Count == 0 ? "No Assigned Permissions" : "")
+        </div>
+        <div class="col-6">
+            <h3>Available Permissions</h3>
+            @foreach (var permission in Model.AvailablePermissions)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">@permission.Name</p>
+                        <a asp-controller="GroupPage" asp-action="AssignPermission" asp-route-groupID="@Model.Group.GroupId" asp-route-permissionID="@permission.PermissionId" class="btn btn-primary text-end">Assign Permission</a>
+                    </div>
+                </div>
+            }
+            @(Model.AvailablePermissions.Count == 0 ? "No Permissions Available to add" : "")
+        </div>
+    </div>
+}

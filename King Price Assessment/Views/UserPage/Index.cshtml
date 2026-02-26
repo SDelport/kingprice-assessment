@@ -1,0 +1,31 @@
+﻿@model List<User>
+@{
+    ViewData["Title"] = "Users";
+    int rowCount = 1;
+}
+
+<div class="text-center">
+    <h1 class="">Users</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>Name</th>
+                <th> <a asp-controller="UserPage" asp-action="Add" class="btn btn-sm btn-info">Add</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@(rowCount++)</td>
+                    <td>@user.Name</td>
+                    <td>
+                        <a asp-controller="UserPage" asp-action="Edit" asp-route-userID="@user.UserId" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-controller="UserPage" asp-action="Delete" asp-route-userID="@user.UserId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

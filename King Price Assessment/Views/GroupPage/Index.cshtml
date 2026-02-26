@@ -1,0 +1,31 @@
+﻿@model List<Group>
+@{
+    ViewData["Title"] = "Groups";
+    int rowCount = 1;
+}
+
+<div class="text-center">
+    <h1 class="">Groups</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>Name</th>
+                <th> <a asp-controller="GroupPage" asp-action="Add" class="btn btn-sm btn-info">Add</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var group in Model)
+            {
+                <tr>
+                    <td>@(rowCount++)</td>
+                    <td>@group.Name</td>
+                    <td>
+                        <a asp-controller="GroupPage" asp-action="Edit" asp-route-groupID="@group.GroupId" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-controller="GroupPage" asp-action="Delete" asp-route-groupID="@group.GroupId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

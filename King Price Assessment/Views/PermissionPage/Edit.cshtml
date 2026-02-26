@@ -1,0 +1,20 @@
+﻿@model Permission
+@{
+    ViewData["Title"] = "Add Permission";
+}
+
+<div class="text-center">
+    <h1 class="">@(Model == null?"Add Permission":$"Editting {Model.Name}")</h1>
+</div>
+<a asp-controller="PermissionPage" asp-action="Index">Back to Permission list</a>
+<hr />
+<form asp-controller="PermissionPage" asp-action="@(Model==null?"Add":"Edit")" method="Post">
+    <input asp-for="PermissionId" type="hidden" class="form-control" id="id" placeholder="">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input asp-for="Name" type="text" class="form-control" id="name" placeholder="">
+
+    </div>
+    <button type="submit" class="btn btn-primary">@(Model == null?"Add":"Save")</button>
+</form>
+
