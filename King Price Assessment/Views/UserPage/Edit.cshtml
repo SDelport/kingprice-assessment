@@ -1,0 +1,51 @@
+﻿@model UserEditViewModel
+@{
+    ViewData["Title"] = "Add User";
+}
+
+<div class="text-center">
+    <h1 class="">@(Model == null?"Add User":$"Editting {Model.User.Name}")</h1>
+</div>
+<a asp-controller="UserPage" asp-action="Index">Back to User list</a>
+<hr />
+<form asp-controller="UserPage" asp-action="@(Model==null?"Add":"Edit")" method="Post">
+    <input asp-for="User.UserId" type="hidden" class="form-control" id="id" placeholder="">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input asp-for="User.Name" type="text" class="form-control" id="name" placeholder="">
+
+    </div>
+    <button type="submit" class="btn btn-primary">@(Model == null?"Add":"Save")</button>
+</form>
+
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-6">
+            <h3>Assigned Groups</h3>
+            @foreach (var group in Model.User.Groups)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">@group.Name</p>
+                        <a asp-controller="UserPage" asp-action="UnassignGroup" asp-route-groupID="@group.GroupId" asp-route-userID="@Model.User.UserId" class="btn btn-danger text-end">Remove Group</a>
+                    </div>
+                </div>
+            }
+            @(Model.User.Groups.Count == 0 ? "No Assigned Groups" : "")
+        </div>
+        <div class="col-6">
+            <h3>Available Groups</h3>
+            @foreach (var group in Model.AvailableGroups)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">@group.Name</p>
+                        <a asp-controller="UserPage" asp-action="AssignGroup" asp-route-groupID="@group.GroupId" asp-route-userID="@Model.User.UserId" class="btn btn-primary text-end">Assign Group</a>
+                    </div>
+                </div>
+            }
+            @(Model.AvailableGroups.Count == 0 ? "No Groups Available to add" : "")
+        </div>
+    </div>
+}

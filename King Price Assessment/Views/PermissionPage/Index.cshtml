@@ -1,0 +1,31 @@
+﻿@model List<Permission>
+@{
+    ViewData["Title"] = "Permissions";
+    int rowCount = 1;
+}
+
+<div class="text-center">
+    <h1 class="">Permissions</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>Name</th>
+                <th> <a asp-controller="PermissionPage" asp-action="Add" class="btn btn-sm btn-info">Add</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var permission in Model)
+            {
+                <tr>
+                    <td>@(rowCount++)</td>
+                    <td>@permission.Name</td>
+                    <td>
+                        <a asp-controller="PermissionPage" asp-action="Edit" asp-route-permissionID="@permission.PermissionId" class="btn btn-sm btn-primary">Edit</a>
+                        <a asp-controller="PermissionPage" asp-action="Delete" asp-route-permissionID="@permission.PermissionId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

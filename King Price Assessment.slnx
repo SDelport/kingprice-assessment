@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="King Price Assessment/King Price Assessment.csproj" />
+  <Project Path="tests/King_Price_Assessment.Tests/King_Price_Assessment.Tests.csproj" />
+</Solution>
